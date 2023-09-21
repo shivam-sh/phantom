@@ -9,9 +9,9 @@ export async function load() {
     const localProject = {
       title: project.title,
       excerpt: project.excerpt,
-      url: (project.canonical_url != null) ? project.canonical_url : project.url,
-      featureImage: project.feature_image,
-    }
+      url: project.canonical_url != null ? project.canonical_url : project.url,
+      featureImage: project.feature_image
+    };
     projects.push(localProject);
   }
 

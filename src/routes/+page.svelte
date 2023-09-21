@@ -1,11 +1,18 @@
+<script>
+  import { PUBLIC_SITE_URL } from '$env/static/public';
+</script>
+
 <svelte:head>
   <title>Home • Spectre</title>
   <meta name="description" content="A template made with SvelteKit, built for use with Ghost" />
 
   <meta property="og:sitename" content="Spectre" />
   <meta property="og:title" content="Home • Spectre" />
-  <meta property="og:description" content="A template made with SvelteKit, built for use with Ghost" />
-  <meta property="og:url" content={(process.env.SITE_URL ?? process.env.VERCEL_URL)} />
+  <meta
+    property="og:description"
+    content="A template made with SvelteKit, built for use with Ghost"
+  />
+  <meta property="og:url" content={PUBLIC_SITE_URL} />
 </svelte:head>
 
 <section class="intro">

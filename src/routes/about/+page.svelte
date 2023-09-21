@@ -1,4 +1,5 @@
 <script>
+  import { PUBLIC_SITE_URL } from '$env/static/public';
   import '../posts.scss';
 </script>
 
@@ -8,8 +9,11 @@
 
   <meta property="og:sitename" content="Spectre" />
   <meta property="og:title" content="About • Spectre" />
-  <meta property="og:description" content="A template made with SvelteKit, built for use with Ghost" />
-  <meta property="og:url" content={(process.env.SITE_URL ?? process.env.VERCEL_URL) + '/about'} />
+  <meta
+    property="og:description"
+    content="A template made with SvelteKit, built for use with Ghost"
+  />
+  <meta property="og:url" content={PUBLIC_SITE_URL + '/about'} />
 </svelte:head>
 
 <div class="content">

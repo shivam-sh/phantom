@@ -1,4 +1,5 @@
 <script>
+  import { PUBLIC_SITE_URL } from '$env/static/public';
   export let data;
 </script>
 
@@ -9,7 +10,7 @@
   <meta property="og:sitename" content="Spectre" />
   <meta property="og:title" content="Posts • Spectre" />
   <meta property="og:description" content="Some posts about topics that are on my mind" />
-  <meta property="og:url" content={(process.env.SITE_URL ?? process.env.VERCEL_URL) + '/posts'} />
+  <meta property="og:url" content={PUBLIC_SITE_URL + '/posts'} />
 </svelte:head>
 
 <div class="posts">

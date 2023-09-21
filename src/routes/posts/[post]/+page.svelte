@@ -1,17 +1,21 @@
 <script>
+  import { PUBLIC_SITE_URL } from '$env/static/public';
   import '../../posts.scss';
   export let data;
 </script>
 
 <svelte:head>
-  <title>{data.title ?? "Post not Found"}</title>
+  <title>{data.title ?? 'Post not Found'}</title>
   <meta name="description" content={data.excerpt ?? 'The post you are looking was not found'} />
 
   <meta property="og:sitename" content="Spectre" />
-  <meta property="og:title" content={data.title ?? "Post not Found"} />
-  <meta property="og:description" content={data.excerpt ?? 'The post you are looking was not found'} />
+  <meta property="og:title" content={data.title ?? 'Post not Found'} />
+  <meta
+    property="og:description"
+    content={data.excerpt ?? 'The post you are looking was not found'}
+  />
   <meta property="og:image" content={data.featureImage} />
-  <meta property="og:url" content={`${process.env.SITE_URL}/posts/${data.slug}`} />
+  <meta property="og:url" content={`${PUBLIC_SITE_URL}/posts/${data.slug}`} />
 </svelte:head>
 
 <div class="table-of-contents">
