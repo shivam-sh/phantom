@@ -1,22 +1,34 @@
+<script>
+  import { PUBLIC_SITE_URL } from '$env/static/public';
+</script>
+
 <svelte:head>
-  <title>Shivam Sh</title>
-  <meta name="description" content="Shivam Sh's Personal Website" />
+  <title>Home • Spectre</title>
+  <meta name="description" content="A template made with SvelteKit, built for use with Ghost" />
+
+  <meta property="og:sitename" content="Spectre" />
+  <meta property="og:title" content="Home • Spectre" />
+  <meta
+    property="og:description"
+    content="A template made with SvelteKit, built for use with Ghost"
+  />
+  <meta property="og:url" content={PUBLIC_SITE_URL} />
 </svelte:head>
 
 <section class="intro">
   <h2 class="title">
-    Hey There<span class="accent-gradient">,</span> <br />
-    I'm Shivam
+    This is<span class="accent-gradient">,</span> <br />
+    Spectre
   </h2>
 
   <q class="description">
-    I’m a Systems Design Engineering{' '}
+    A template built by <a href="https://shivam.sh">Shivam Sh</a> for my site.{' '}
     <br />
-    student at the University of Waterloo{' '}
+    Built to be widely extensible, customizable,{' '}
     <br />
-    I like exploring and creating with tech{' '}
+    support light/dark themes, and be accessible.{' '}
     <br />
-    and sometimes I post about it here
+    Made with SvelteKit, built to work with Ghost.{' '}
   </q>
 </section>
 

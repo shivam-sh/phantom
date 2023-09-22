@@ -123,11 +123,18 @@
     }
   }
 
+  // small to medium screens
+  @media (max-width: 52rem) {
+    .logo {
+      padding: 0.8rem 1rem 0.6rem 1rem;
+    }
+  }
+
   // very small screens
   @media (max-width: 32rem) {
     .logo {
       scale: 0.8;
-      padding: 0.8rem 1rem 1rem 1rem;
+      padding: 0.6rem 1rem 0.6rem 1rem;
     }
   }
 </style>

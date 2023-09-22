@@ -21,17 +21,16 @@
     [PageType.PROJECT]: /^\/projects\/[a-zA-Z0-9_-]+$/
   };
 
-  export function currentPageType(): PageType {
-    const pathname = $page.url.pathname;
-
+  export function currentPageType(path: string): PageType {
     const pageType =
-      Object.entries(pathToPageTypeRegex).find(([, regex]) => regex.test(pathname))?.[0] ??
+      Object.entries(pathToPageTypeRegex).find(([, regex]) => regex.test(path))?.[0] ??
       PageType.UNKNOWN;
 
     return pageType as PageType;
   }
 
-  let currentPage = currentPageType();
+  $: pathname = $page.url.pathname;
+  $: currentPage = currentPageType(pathname);
 </script>
 
 <header class="navbar">
@@ -45,7 +44,7 @@
     </a>
 
     <a
-      href="/"
+      href="/posts"
       class={currentPage === PageType.POSTS || currentPage === PageType.POST ? 'selected' : ''}
     >
       <p class="linkText">
@@ -54,7 +53,7 @@
     </a>
 
     <a
-      href="/"
+      href="/projects"
       class={currentPage === PageType.PROJECTS || currentPage === PageType.PROJECT
         ? 'selected'
         : ''}
@@ -64,7 +63,7 @@
       </p>
     </a>
 
-    <a href="/" class={currentPage === PageType.ABOUT ? 'selected' : ''}>
+    <a href="/about" class={currentPage === PageType.ABOUT ? 'selected' : ''}>
       <p class="linkText">
         <span>&nbsp;</span>about
       </p>
@@ -123,9 +122,8 @@
 
           span {
             display: inline-block;
-            margin: 0;
             border-radius: 0.1rem;
-            height: 0;
+            margin: 0;
             width: 0;
             opacity: 0;
 
@@ -135,24 +133,11 @@
           }
         }
 
-        &:where(.selected) {
-          .linkText {
-            gap: 0.3rem;
-            span {
-              display: inline-block;
-              background-color: var(--accent);
-              height: auto;
-              width: 0.2rem;
-              opacity: 1;
-            }
-          }
-        }
-
+        &:where(.selected),
         &:hover:where(:not(.selected)) {
           .linkText {
             gap: 0.3rem;
             span {
-              display: inline-block;
               background-color: var(--accent);
               height: auto;
               width: 0.2rem;
@@ -171,7 +156,7 @@
       height: auto;
       width: 100vw;
 
-      padding: 2rem 1rem 1rem 1rem;
+      padding: 1rem 1rem 1rem 1rem;
       background-color: var(--bg);
 
       position: fixed;
@@ -188,21 +173,17 @@
 
         a {
           .linkText {
+            gap: 0.1rem;
             display: flex;
             flex-direction: column-reverse;
-          }
 
-          &:hover:where(.selected) {
-            .linkText {
-              gap: 0.1rem;
-              span {
-                width: 100%;
-                height: 3px;
-              }
+            span {
+              height: 3px;
             }
           }
 
-          &:hover:where(:not(selected)) {
+          &:where(.selected),
+          &:hover:where(:not(.selected)) {
             .linkText {
               gap: 0.1rem;
               span {
@@ -219,7 +200,7 @@
   // very small screens
   @media (max-width: 32rem) {
     .navbar {
-      padding: 1.5rem 0.3rem 1rem 1rem;
+      padding: 1rem 0.3rem 0.8rem 1rem;
       .links {
         gap: 0.7rem;
       }
