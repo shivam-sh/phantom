@@ -4,15 +4,11 @@ import { error } from '@sveltejs/kit';
 
 /** @type {import('./$types').PageData} */
 export async function load({ params }) {
-  const post = await fetchProject(params.project)
-    .catch(() => {
-      throw error(404, 'Page not found');
-    });
+  const post = await fetchProject(params.project).catch(() => {
+    throw error(404, 'Page not found');
+  });
 
-  if (
-    post.tags.some((tag) => tag.name === '#inline') &&
-    post.title != '(Untitled)'
-  ) {
+  if (post.tags.some((tag) => tag.name === '#inline') && post.title != '(Untitled)') {
     post.html = `<h1 id="${post.title}">${post.title}</h1>` + post.html;
   }
 

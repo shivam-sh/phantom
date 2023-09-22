@@ -1,9 +1,11 @@
 import GhostAdminAPI from '@tryghost/admin-api';
+import { PUBLIC_SITE_URL } from '$env/static/public';
+import { GHOST_URL, GHOST_ADMIN_API_KEY, VERCEL_URL } from '$env/static/private';
 
 const api = new GhostAdminAPI({
-  url: process.env.GHOST_URL,
-  key: process.env.GHOST_ADMIN_API_KEY,
-  version: 'v5.45',
+  url: GHOST_URL,
+  key: GHOST_ADMIN_API_KEY,
+  version: 'v5.45'
 });
 
 export async function fetchPosts() {
@@ -11,14 +13,15 @@ export async function fetchPosts() {
     .browse({ limit: 'all', formats: ['html'], include: 'tags' })
     .then((posts) => {
       return posts.filter(
-        (post) => post.tags.some((tag) => tag.name === '#post') &&
-          post.status === 'published'
+        (post) => post.tags.some((tag) => tag.name === '#post') && post.status === 'published'
       );
     })
     .then((posts) => {
       for (const post of posts) {
-        if (post.url.startsWith(process.env.SITE_URL)) {
-          post.url = post.url.replace(process.env.SITE_URL, '');
+        if (post.url.startsWith(PUBLIC_SITE_URL)) {
+          post.url = post.url.replace(PUBLIC_SITE_URL, '');
+        } else if (VERCEL_URL && post.url.startsWith(VERCEL_URL)) {
+          post.url = post.url.replace(VERCEL_URL, '');
         }
       }
       return posts;
@@ -45,9 +48,18 @@ export async function fetchProjects() {
     .then((projects) => {
       return projects.filter(
         (project) =>
-          project.tags.some((tag) => tag.name === '#project') &&
-          project.status === 'published'
+          project.tags.some((tag) => tag.name === '#project') && project.status === 'published'
       );
+    })
+    .then((projects) => {
+      for (const project of projects) {
+        if (project.url.startsWith(PUBLIC_SITE_URL)) {
+          project.url = project.url.replace(PUBLIC_SITE_URL, '');
+        } else if (VERCEL_URL && project.url.startsWith(VERCEL_URL)) {
+          project.url = project.url.replace(VERCEL_URL, '');
+        }
+      }
+      return projects;
     });
 }
 

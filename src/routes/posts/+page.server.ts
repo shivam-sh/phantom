@@ -14,9 +14,9 @@ export async function load() {
       date: format(new Date(post.published_at), 'dd-MM-yyyy'),
       inline: inline,
       html: inline ? post.html : null,
-      url: (post.canonical_url != null) ? post.canonical_url : post.url,
-      externalLink: post.canonical_url != null,
-    }
+      url: post.canonical_url != null ? post.canonical_url : post.url,
+      externalLink: post.canonical_url != null
+    };
     posts.push(localPost);
   }
 

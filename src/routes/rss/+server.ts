@@ -1,11 +1,12 @@
+import { PUBLIC_SITE_URL } from '$env/static/public';
+import { VERCEL_URL } from '$env/static/private';
 import { Feed } from 'feed';
 import { fetchPosts } from '$lib/server/ghostData.server';
 
 export async function GET() {
-  const site_url = process.env.SITE_URL || process.env.VERCEL_URL;
+  const site_url = PUBLIC_SITE_URL || VERCEL_URL;
   const postsData = await fetchPosts();
-  const rssData = postsData
-    .slice(0, 10);
+  const rssData = postsData.slice(0, 10);
 
   const feedOptions = {
     title: 'Shivam Sh',
@@ -16,8 +17,8 @@ export async function GET() {
     copyright: `All rights reserved ${new Date().getFullYear()}, Shivam Sh`,
     generator: 'Feed for Node.js',
     feedLinks: {
-      rss2: `${site_url}rss`,
-    },
+      rss2: `${site_url}rss`
+    }
   };
 
   const feed = new Feed(feedOptions);
@@ -29,7 +30,7 @@ export async function GET() {
         description: post.excerpt,
         date: new Date(post.published_at),
         link: `${post.url}`,
-        content: String(post.html),
+        content: String(post.html)
       });
     })
   );
@@ -37,7 +38,7 @@ export async function GET() {
   return new Response(feed.rss2(), {
     status: 200,
     headers: {
-      'Content-Type': 'application/rss+xml',
-    },
+      'Content-Type': 'application/rss+xml'
+    }
   });
 }

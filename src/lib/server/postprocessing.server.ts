@@ -28,7 +28,7 @@ export async function parseTOC(htmlString: string) {
 
   // not worth showing if it's a small post
   if (headings.length < 3) headings = [];
-  
+
   // if there are a bunch, only show h1 headings
   if (headings.length > 5) {
     headings = headings.filter((entry) => entry.depth == 1);
